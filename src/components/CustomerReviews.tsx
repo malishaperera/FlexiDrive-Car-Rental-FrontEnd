@@ -1,6 +1,5 @@
-// import React, { useState } from 'react';
-
-import {useState} from "react";
+import { useState } from "react";
+import { motion } from "framer-motion"; // Import motion from framer-motion
 
 const CustomerReviews = () => {
     const reviews = [
@@ -31,17 +30,14 @@ const CustomerReviews = () => {
         },
     ];
 
-    // State to track the current set of reviews shown
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Function to move to the next set of reviews
     const handleNext = () => {
         if (currentIndex + 3 < reviews.length) {
             setCurrentIndex(currentIndex + 3);
         }
     };
 
-    // Function to move to the previous set of reviews
     const handlePrev = () => {
         if (currentIndex - 3 >= 0) {
             setCurrentIndex(currentIndex - 3);
@@ -57,7 +53,14 @@ const CustomerReviews = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 {reviews.slice(currentIndex, currentIndex + 3).map((review, index) => (
-                    <div key={index} className="bg-white shadow-lg p-6 rounded-lg text-center">
+                    <motion.div
+                        key={index}
+                        className="bg-white shadow-lg p-6 rounded-lg text-center"
+                        whileInView={{ opacity: 1, y: 0 }} // Animate opacity and y-position
+                        initial={{ opacity: 0, y: 50 }} // Start with opacity 0 and y-position 50px
+                        transition={{ duration: 0.5, delay: index * 0.1 }} // Delay for each review item
+                        viewport={{ amount: 0.3 }} // Trigger animation when 30% of the element is in view
+                    >
                         <div className="flex justify-center items-center mb-4">
                             <div className="w-16 h-16 rounded-full bg-[#40b6f0] text-white flex justify-center items-center">
                                 <span className="text-xl">{review.name.charAt(0)}</span>
@@ -70,7 +73,7 @@ const CustomerReviews = () => {
                                 <span key={i} className="text-yellow-400">★</span>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
 
