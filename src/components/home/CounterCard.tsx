@@ -11,7 +11,7 @@ const CounterCard = () => {
 
   useEffect(() => {
     const interval1 = setInterval(() => {
-      if (activeMembers < 2000) {
+      if (activeMembers < 3500) {
         setActiveMembers((prev) => prev + 1);
       }
     }, 1);

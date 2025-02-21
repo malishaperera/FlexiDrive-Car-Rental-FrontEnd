@@ -1,10 +1,12 @@
-import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function Header() {
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-        const [isLoggedIn, setIsLoggedIn] = useState(false);
     return (
-        <header className="flex top-0 left-0 w-full  justify-between items-center px-10 py-5 bg-blue-950 shadow-md transition-colors fixed z-50">
+        <header className="flex top-0 left-0 w-full justify-between items-center px-10 py-5 bg-blue-950 shadow-md transition-colors fixed z-50 ">
             <h1 className="text-2xl font-bold text-[#252828]">Flexi-Drive</h1>
             <nav className="flex space-x-6 text-white">
                 <a href="#" className="hover:text-[#40b6f0]">Home</a>
@@ -22,18 +24,21 @@ export function Header() {
                         >
                             Log in
                         </button>
-                        <button className="bg-[#40b6f0] text-white px-4 py-2 rounded-md hover:bg-[#3598d7]">
+                        <button
+                            className="bg-[#40b6f0] text-white px-4 py-2 rounded-md hover:bg-[#3598d7]"
+                            onClick={() => navigate("/register")} // ✅ This should work now
+                        >
                             Sign Up
                         </button>
                     </>
                 ) : (
                     <img
-                        src="/Logo1.svg" // Replace with actual user profile image
+                        src="/Logo1.svg"
                         alt="User Profile"
                         className="w-10 h-10 rounded-full border-2 border-[#40b6f0]"
                     />
                 )}
             </div>
         </header>
-    )
+    );
 }

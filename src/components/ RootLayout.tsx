@@ -1,10 +1,33 @@
-import {HomePage} from "./HomePage.tsx";
-
+import {Outlet, useLocation} from "react-router-dom";
+import {Header} from "./home/Header.tsx";
+import { useEffect } from "react";
 
 export function RootLayout() {
+
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === "/register") {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [location]);
+
     return (
-        // <div className="w-screen h-screen flex flex-col items-center justify-center  bg-gray-200">
-            <HomePage/>
+
+        <>
+            {/*<HomePage/>*/}
+            <Header />
+            <Outlet/>
+
+        </>
+
+
         // </div>
     );
 }
