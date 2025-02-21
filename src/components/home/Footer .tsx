@@ -1,4 +1,3 @@
-// import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
@@ -8,7 +7,7 @@ const Footer = () => {
                 {/* Company Info Section */}
                 <div className="flex flex-col md:flex-row justify-between items-center mb-8">
                     <div>
-                        <h2 className="text-3xl font-bold">YOUR CHARIOT</h2>
+                        <h2 className="text-3xl font-bold">Flexi-Drive</h2>
                         <p className="mt-4 text-gray-400">
                             We stand as your trusted partner. Our dedication to quality, innovation, and customer satisfaction sets us apart.
                         </p>
@@ -76,7 +75,7 @@ const Footer = () => {
 
                 {/* Footer Bottom Section */}
                 <div className="text-center text-gray-400">
-                    <p>&copy; 2025 Powered by Your CHARIOT, Designed by MS.Perera</p>
+                    <p>&copy; 2025 Powered by Flexi-Drive, Designed by Malisha Perera</p>
                 </div>
             </div>
         </footer>
