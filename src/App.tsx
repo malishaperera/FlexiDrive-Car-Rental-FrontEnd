@@ -21,11 +21,8 @@ function App() {
                 { path: "login", element: <Login /> },
                 { path: "adminDashboard", element: <Admin /> },
                 { path: "/*", element: <ErrorNotFound /> },
-
-
             ],
         },
-
     ]);
 
     return (

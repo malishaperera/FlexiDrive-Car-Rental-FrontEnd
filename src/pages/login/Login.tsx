@@ -1,9 +1,9 @@
-import {useCallback, useState} from "react";
+import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store.tsx";
+import { AppDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-import {loginUser} from "../../reducers/LoginReducer.ts";
+import { loginUser } from "../../reducers/LoginReducer";
 
 export function Login() {
     const dispatch = useDispatch<AppDispatch>();
@@ -26,15 +26,16 @@ export function Login() {
             return;
         }
 
-        console.log("Login Form Submitted:", formData);
         dispatch(loginUser(formData)).then((result) => {
             if (result.meta.requestStatus === "fulfilled") {
-                const { token, role } = result.payload;
+                const { token, role, name } = result.payload; // Assuming `name` is the logged-in user's name
 
                 if (token) {
                     localStorage.setItem("authToken", token);
+                    localStorage.setItem("customerName", name); // Save customer name in localStorage
                     setTimeout(() => {
                         localStorage.removeItem("authToken");
+                        localStorage.removeItem("customerName");
                         window.location.href = "/login";
                     }, 45 * 60 * 1000);
                 }
@@ -53,7 +54,7 @@ export function Login() {
 
     return (
         <div
-            className="flex justify-center items-center min-h-screen bg-cover bg-center relative mt-20 my-header"
+            className="flex justify-center items-center min-h-screen bg-cover bg-center relative mt-20"
             style={{ backgroundImage: "url('/car1.jpg')" }}
         >
             <div className="relative flex w-[500px] max-w-4xl bg-opacity-20 backdrop-blur-lg shadow-xl rounded-2xl overflow-hidden mb-20">
