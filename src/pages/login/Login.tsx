@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../reducers/LoginReducer";
+import {Header} from "../../components/home/Header.tsx";
 
 export function Login() {
     const dispatch = useDispatch<AppDispatch>();
@@ -28,11 +29,11 @@ export function Login() {
 
         dispatch(loginUser(formData)).then((result) => {
             if (result.meta.requestStatus === "fulfilled") {
-                const { token, role, name } = result.payload; // Assuming `name` is the logged-in user's name
+                const { token, role, name } = result.payload;
 
                 if (token) {
                     localStorage.setItem("authToken", token);
-                    localStorage.setItem("customerName", name); // Save customer name in localStorage
+                    localStorage.setItem("customerName", name);
                     setTimeout(() => {
                         localStorage.removeItem("authToken");
                         localStorage.removeItem("customerName");
@@ -53,8 +54,11 @@ export function Login() {
     }, [dispatch, formData, navigate]);
 
     return (
+       <>
+           <Header/>
+
         <div
-            className="flex justify-center items-center min-h-screen bg-cover bg-center relative mt-20"
+            className="flex justify-center items-center min-h-screen bg-cover bg-center relative mt-20 my-header"
             style={{ backgroundImage: "url('/car1.jpg')" }}
         >
             <div className="relative flex w-[500px] max-w-4xl bg-opacity-20 backdrop-blur-lg shadow-xl rounded-2xl overflow-hidden mb-20">
@@ -103,5 +107,6 @@ export function Login() {
                 </div>
             </div>
         </div>
+       </>
     );
 }

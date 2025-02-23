@@ -22,12 +22,9 @@ export function RootLayout() {
 
         <>
             {/*<HomePage/>*/}
-            <Header />
+            {/*<Header />*/}
             <Outlet/>
 
         </>
-
-
-        // </div>
     );
 }

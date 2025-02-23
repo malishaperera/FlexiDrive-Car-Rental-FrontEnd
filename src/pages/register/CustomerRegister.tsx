@@ -5,6 +5,7 @@ import {AppDispatch} from "../../store/store.tsx";
 import {CustomerModel} from "../../models/CustomerModel.tsx";
 import {saveCustomer} from "../../reducers/CustomerReducer.ts";
 import {useNavigate} from "react-router-dom";
+import {Header} from "../../components/home/Header.tsx";
 
 export function CustomerRegister() {
 
@@ -42,6 +43,10 @@ export function CustomerRegister() {
     };
 
     return (
+
+        <>
+            <Header/>
+
         <div
             className="flex justify-center items-center min-h-screen bg-cover bg-center relative mt-20 my-header"
             style={{ backgroundImage: "url('/car1.jpg')" }}>
@@ -133,5 +138,6 @@ export function CustomerRegister() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

@@ -1,74 +1,111 @@
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function SearchBox() {
+    const navigate = useNavigate();
     const today = new Date().toISOString().split("T")[0];
 
-    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const [pickupLocation, setPickupLocation] = useState("");
+    const [pickupDate, setPickupDate] = useState("");
+    const [returnDate, setReturnDate] = useState("");
+    const [pickupTime, setPickupTime] = useState("");
+    const [returnTime, setReturnTime] = useState("");
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        const pickupDate = (document.getElementById('pickup-date') as HTMLInputElement).value;
-        const returnDate = (document.getElementById('return-date') as HTMLInputElement).value;
+        // Check if all fields are filled
+        if (!pickupLocation || !pickupDate || !returnDate || !pickupTime || !returnTime) {
 
-        // Check if return date is earlier than pickup date
-        if (new Date(returnDate) < new Date(pickupDate)) {
-            toast.error("Return date cannot be earlier than pick-up date.");
+            toast.error("Please fill in all fields");
             return;
         }
 
-        // Validate if the pickup date is before today
-        if (new Date(pickupDate) < new Date(today)) {
-            toast.error("Pick-up date cannot be in the past.");
-            return;
-        }
-
-        // Validate if the return date is before today
-        if (new Date(returnDate) < new Date(today)) {
-            toast.error("Return date cannot be in the past.");
-            return;
-        }
-
-        // If everything is valid, you can proceed
-        toast.success("Form submitted successfully!");
+        // If everything is fine, proceed to navigate
+        console.log("Navigating to /car");
+        navigate("/car");
     };
 
     return (
-        <section className="bg-white shadow-md p-6 rounded-lg max-w-6xl mx-auto mt-10 absolute bottom-[-90px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-            <div>
-                <label className="block text-gray-700">Pick up Location</label>
-                <input type="text" className="w-full p-3 border rounded-md" placeholder="SriLanka, Colombo" />
-            </div>
-            <div>
-                <label className="block text-gray-700">Pick up Date & Time</label>
-                <div className="flex space-x-4">
-                    <input
-                        id="pickup-date"
-                        type="date"
-                        className="w-1/2 p-3 border rounded-md"
-                        min={today}
-                    />
-                    <input type="time" className="w-1/2 p-3 border rounded-md" />
-                </div>
-            </div>
+        <div className="bg-white w-[1800px] max-w-5xl shadow-lg p-8 rounded-xl mx-auto mt-10 absolute bottom-[-90px]">
 
-            <div>
-                <label className="block text-gray-700">Return Date & Time</label>
-                <div className="flex space-x-4">
-                    <input
-                        id="return-date"
-                        type="date"
-                        className="w-1/2 p-3 border rounded-md"
-                        min={today}
-                    />
-                    <input type="time" className="w-1/2 p-3 border rounded-md" placeholder="Return time" />
-                </div>
-            </div>
+        <form className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end" onSubmit={handleSubmit}>
 
-            <button
-                onClick={handleSubmit}
-                className="col-span-2 md:col-span-3 lg:col-span-3 bg-[#40b6f0] text-white py-3 rounded-md hover:bg-[#3598d7]"
-            >
-                Search Car
-            </button>
-        </section>
+                {/* Pick-up Location */}
+                <div className="flex flex-col">
+                    <label className="text-gray-700 font-medium">Pick-up Location</label>
+                    <select
+                        className="p-3 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        value={pickupLocation}
+                        onChange={(e) => setPickupLocation(e.target.value)}
+                    >
+                        <option value="">Select Location</option>
+                        <option value="colombo1">Colombo 1 (Fort)</option>
+                        <option value="colombo2">Colombo 2 (Pettah)</option>
+                        <option value="colombo3">Colombo 3 (Kollupitiya)</option>
+                        <option value="colombo4">Colombo 4 (Bambalapitiya)</option>
+                        <option value="colombo5">Colombo 5 (Havelock Town)</option>
+                        <option value="colombo6">Colombo 6 (Wellawatte)</option>
+                        <option value="colombo7">Colombo 7 (Cinnamon Gardens)</option>
+                        <option value="colombo8">Colombo 8 (Borella)</option>
+                        <option value="colombo9">Colombo 9 (Dematagoda)</option>
+                        <option value="colombo10">Colombo 10 (Grandpass)</option>
+                    </select>
+                </div>
+
+                {/* Pick-up Date & Time */}
+                <div className="flex flex-col">
+                    <label className="text-gray-700 font-medium">Pick-up Date & Time</label>
+                    <div className="flex space-x-3">
+                        <input
+                            type="date"
+                            className="p-3 border rounded-lg w-[240px] focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            min={today}
+                            value={pickupDate}
+                            onChange={(e) => setPickupDate(e.target.value)}
+                        />
+                        <input
+                            type="time"
+                            className="p-3 border rounded-lg w-[240px] focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            value={pickupTime}
+                            onChange={(e) => setPickupTime(e.target.value)}
+                        />
+                    </div>
+                </div>
+
+                {/* Return Date & Time */}
+                <div className="flex flex-col">
+                    <label className="text-gray-700 font-medium">Return Date & Time</label>
+                    <div className="flex space-x-3">
+                        <input
+                            type="date"
+                            className="p-3 border rounded-lg w-[240px] focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            min={today}
+                            value={returnDate}
+                            onChange={(e) => setReturnDate(e.target.value)}
+                        />
+                        <input
+                            type="time"
+                            className="p-3 border rounded-lg w-[240px] focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            value={returnTime}
+                            onChange={(e) => setReturnTime(e.target.value)}
+                        />
+                    </div>
+                </div>
+
+                {/* Search Button */}
+                <div className="col-span-1 md:col-span-3 flex justify-center mt-4">
+                    <button
+                        type="submit"
+                        className="bg-[#40b6f0] w-[600px] text-white py-3 px-10 text-lg font-medium rounded-lg hover:bg-[#3598d7] transition duration-300"
+                    >
+                        Search
+                    </button>
+                </div>
+
+            </form>
+        </div>
     );
 }
