@@ -17,7 +17,7 @@ export function HomePage() {
             </section>
 
             {/* Rent Car Section */}
-            <section id="rent-section">
+            <section id="latest-section">
                 <LatestCar />
             </section>
 

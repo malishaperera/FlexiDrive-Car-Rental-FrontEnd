@@ -36,7 +36,7 @@ export function Header() {
     const handleComingSoon = () => {
         toast("Coming soon...", {
             position: "top-center",
-            duration: 3000,
+            duration: 1000,
         });
     };
 
@@ -50,11 +50,18 @@ export function Header() {
                 >
                     Home
                 </button>
+                {/*<button*/}
+                {/*    onClick={() => handleScrollAndNavigate("rent-section", "/")}*/}
+                {/*    className="hover:text-[#40b6f0]"*/}
+                {/*>*/}
+                {/*    Rent Car*/}
+                {/*</button>*/}
+
                 <button
-                    onClick={() => handleScrollAndNavigate("rent-section", "/")}
+                    onClick={() => handleScrollAndNavigate("latest-section", "/")}
                     className="hover:text-[#40b6f0]"
                 >
-                    Rent Car
+                    Latest Car
                 </button>
                 <button
                     onClick={() => handleScrollAndNavigate("about-section", "/")}

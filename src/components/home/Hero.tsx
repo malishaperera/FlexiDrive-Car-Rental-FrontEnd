@@ -10,7 +10,7 @@ export function Hero(){
                 <p className="text-gray-200 mt-4 max-w-2xl">
                     We offer a wide range of rental cars to suit your needs. Whether you're planning a weekend getaway or a business trip.
                 </p>
-                <button className="mt-6 bg-[#40b6f0] text-white px-6 py-3 rounded-md hover:bg-[#3598d7]">Rent Car</button>
+                <button className="mt-6 bg-[#40b6f0] text-white px-6 py-3 rounded-md hover:bg-[#3598d7]">Book Now</button>
             </section>
 
             {/* Search Box */}
