@@ -1,51 +1,67 @@
-import { useState } from "react";
+import {useCallback, useState} from "react";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store.tsx";
+import { useNavigate } from "react-router-dom";
+import {loginUser} from "../../reducers/LoginReducer.ts";
 
-export function AdminRegister() {
+export function Login() {
+    const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
-        name: "",
         email: "",
         password: "",
-        phoneNumber: "",
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = useCallback((e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form Submitted:", formData);
-    };
+
+        if (!formData.email || !formData.password) {
+            toast.error("Please fill in all fields");
+            return;
+        }
+
+        console.log("Login Form Submitted:", formData);
+        dispatch(loginUser(formData)).then((result) => {
+            if (result.meta.requestStatus === "fulfilled") {
+                const { token, role } = result.payload;
+
+                if (token) {
+                    localStorage.setItem("authToken", token);
+                    setTimeout(() => {
+                        localStorage.removeItem("authToken");
+                        window.location.href = "/login";
+                    }, 45 * 60 * 1000);
+                }
+
+                if (role === "CUSTOMER") {
+                    toast.success("You are logged in!");
+                    navigate("/");
+                } else if (role === "ADMIN") {
+                    navigate("/adminDashboard");
+                } else {
+                    navigate("/");
+                }
+            }
+        });
+    }, [dispatch, formData, navigate]);
 
     return (
         <div
             className="flex justify-center items-center min-h-screen bg-cover bg-center relative mt-20 my-header"
             style={{ backgroundImage: "url('/car1.jpg')" }}
         >
-            {/* Overlay for better visibility */}
-            <div className="absolute inset-0 bg-black opacity-50"></div>
-
-            {/* Registration Form Container */}
-            <div className="relative flex w-[500px] max-w-4xl bg-opacity-20 backdrop-blur-lg shadow-xl rounded-2xl overflow-hidden overflow-y-auto mb-20">
-                {/* Right Side - Form Section */}
+            <div className="relative flex w-[500px] max-w-4xl bg-opacity-20 backdrop-blur-lg shadow-xl rounded-2xl overflow-hidden mb-20">
                 <div className="w-full flex flex-col justify-center items-center p-8">
-                    <h2 className="text-3xl font-bold text-center text-white mb-6 drop-shadow-lg">
-                        Admin Sign Up
+                    <h2 className="text-xl font-bold text-center text-[#3598d7] mb-6 drop-shadow-lg">
+                        Login
                     </h2>
-                    <form className="w-full space-y-4" onSubmit={handleSubmit}>
-                        {/* Form Fields */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-200">Name</label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                className="mt-1 block w-full p-3 bg-transparent border border-gray-300 text-white rounded-md focus:ring-[#40b6f0] focus:border-[#40b6f0] placeholder-gray-300"
-                                placeholder="Enter your name"
-                                required
-                            />
-                        </div>
+                    <form className="w-full space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <label className="block text-sm font-medium text-gray-200">Email</label>
                             <input
@@ -70,29 +86,17 @@ export function AdminRegister() {
                                 required
                             />
                         </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-200">Phone Number</label>
-                            <input
-                                type="tel"
-                                name="phoneNumber"
-                                value={formData.phoneNumber}
-                                onChange={handleChange}
-                                className="mt-1 block w-full p-3 bg-transparent border border-gray-300 text-white rounded-md focus:ring-[#40b6f0] focus:border-[#40b6f0] placeholder-gray-300"
-                                placeholder="Enter your phone number"
-                                required
-                            />
-                        </div>
                         <button
                             type="submit"
                             className="w-full bg-[#40b6f0] text-white p-3 rounded-md hover:bg-[#3598d7] transition font-semibold"
                         >
-                            Sign Up
+                            Login
                         </button>
                     </form>
                     <p className="text-center text-sm text-gray-200 mt-4">
-                        Already have an account?{" "}
-                        <a href="#" className="text-[#40b6f0] hover:underline">
-                            Log in
+                        Don't have an account?{" "}
+                        <a href="/register" className="text-[#40b6f0] hover:underline">
+                            Sign up
                         </a>
                     </p>
                 </div>

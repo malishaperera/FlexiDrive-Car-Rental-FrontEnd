@@ -1,9 +1,14 @@
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { AdminRegister } from "./pages/register/AdminRegister.tsx";
-import {RootLayout} from "./components/ RootLayout.tsx";
-import {HomePage} from "./components/HomePage.tsx";
+import { CustomerRegister } from "./pages/register/CustomerRegister.tsx";
+import { RootLayout } from "./components/ RootLayout.tsx";
+import { HomePage } from "./components/HomePage.tsx";
+import { Provider } from "react-redux";
+import { store } from "./store/store.tsx";
+import {Login} from "./pages/login/Login.tsx";
+import {Admin} from "./components/Admin.tsx";
+import ErrorNotFound from "./pages/Error.tsx";
 
 function App() {
     const routes = createBrowserRouter([
@@ -12,9 +17,15 @@ function App() {
             element: <RootLayout />,
             children: [
                 { path: "/", element: <HomePage /> },
-                { path: "register", element: <AdminRegister /> },
+                { path: "register", element: <CustomerRegister /> },
+                { path: "login", element: <Login /> },
+                { path: "adminDashboard", element: <Admin /> },
+                { path: "/*", element: <ErrorNotFound /> },
+
+
             ],
         },
+
     ]);
 
     return (
@@ -29,9 +40,16 @@ function App() {
                         alignItems: "center",
                         justifyContent: "center",
                     },
+                    duration: 2000,
+                    iconTheme: {
+                        primary: 'green',
+                        secondary: 'black',
+                    },
                 }}
             />
-            <RouterProvider router={routes} />
+            <Provider store={store}>
+                <RouterProvider router={routes} />
+            </Provider>
         </>
     );
 }

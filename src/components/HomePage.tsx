@@ -12,14 +12,22 @@ export function HomePage() {
             {/* Header */}
             <Header/>
             {/* Hero Section */}
-            <Hero/>
-            {/* LatestCar Section */}
-            <LatestCar/>
-            {/* About Section */}
-            <AboutUs/>
-            {/*<CounterCard/>*/}
-            {/*<CustomerReviews/>*/}
-            <Footer/>
+            <section id="hero-section">
+                <Hero />
+            </section>
+
+            {/* Rent Car Section */}
+            <section id="rent-section">
+                <LatestCar />
+            </section>
+
+            {/* About Us Section */}
+            <section id="about-section">
+                <AboutUs />
+            </section>
+
+            {/* Footer */}
+            <Footer />
         </div>
     );
 }
