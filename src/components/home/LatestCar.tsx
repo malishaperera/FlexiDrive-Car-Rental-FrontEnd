@@ -15,11 +15,11 @@ export function LatestCar(){
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 {[
                     { name: "Tesla Model S", image: "car2.jpg", price: "$120/day" },
-                    { name: "BMW M5", image: "bmw.jpg", price: "$150/day" },
-                    { name: "Audi R8", image: "audi.jpg", price: "$180/day" },
-                    { name: "Mercedes-Benz G63", image: "g63.jpg", price: "$200/day" },
-                    { name: "Lamborghini Huracan", image: "lambo.jpg", price: "$250/day" },
-                    { name: "Porsche 911", image: "porsche.jpg", price: "$220/day" },
+                    { name: "BMW M5", image: "car3.jpg", price: "$150/day" },
+                    { name: "Audi R8", image: "car.webp", price: "$180/day" },
+                    { name: "Mercedes-Benz G63", image: "car.jpg", price: "$200/day" },
+                    { name: "Lamborghini Huracan", image: "car3.jpg", price: "$250/day" },
+                    { name: "Porsche 911", image: "car2.jpg", price: "$220/day" },
                 ].map((car, index) => (
                     <motion.div
                         key={index}
@@ -36,9 +36,9 @@ export function LatestCar(){
                         />
                         <h3 className="text-xl font-bold text-[#252828]">{car.name}</h3>
                         <p className="text-gray-600">{car.price}</p>
-                        <button className="mt-4 bg-[#40b6f0] text-white px-6 py-2 rounded-md hover:bg-[#3598d7]">
-                            Rent Now
-                        </button>
+                        {/*<button className="mt-4 bg-[#40b6f0] text-white px-6 py-2 rounded-md hover:bg-[#3598d7]">*/}
+                        {/*    Rent Now*/}
+                        {/*</button>*/}
                     </motion.div>
                 ))}
             </div>

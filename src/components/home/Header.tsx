@@ -42,7 +42,7 @@ export function Header() {
 
     return (
         <header className="flex top-0 left-0 w-full justify-between items-center px-10 py-5 bg-blue-950 shadow-md transition-colors fixed z-50">
-            <h1 className="text-2xl font-bold text-[#252828]">Flexi-Drive</h1>
+            <h1 className="text-2xl font-bold text-[#3598d7]">Flexi-Drive</h1>
             <nav className="flex space-x-6 text-white">
                 <button
                     onClick={() => handleScrollAndNavigate("hero-section", "/")}

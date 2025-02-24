@@ -16,16 +16,23 @@ export function SearchBox() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Check if all fields are filled
         if (!pickupLocation || !pickupDate || !returnDate || !pickupTime || !returnTime) {
 
             toast.error("Please fill in all fields");
             return;
         }
 
-        // If everything is fine, proceed to navigate
         console.log("Navigating to /car");
-        navigate("/car");
+        // navigate("/car");
+        navigate("/car", {
+            state: {
+                pickupLocation,
+                pickupDate,
+                returnDate,
+                pickupTime,
+                returnTime,
+            },
+        });
     };
 
     return (

@@ -10,6 +10,8 @@ import {Login} from "./pages/login/Login.tsx";
 import {Admin} from "./components/Admin.tsx";
 import ErrorNotFound from "./pages/Error.tsx";
 import {Car} from "./pages/Car.tsx";
+import {Booking} from "./pages/Booking.tsx";
+import {CustomerDetails} from "./pages/CustomerDetails.tsx";
 
 function App() {
     const routes = createBrowserRouter([
@@ -22,6 +24,8 @@ function App() {
                 { path: "register", element: <CustomerRegister /> },
                 { path: "login", element: <Login /> },
                 { path: "adminDashboard", element: <Admin /> },
+                { path: "booking", element: <Booking /> },
+                { path: "customerDetails", element: <CustomerDetails /> },
                 { path: "/*", element: <ErrorNotFound /> },
             ],
         },
