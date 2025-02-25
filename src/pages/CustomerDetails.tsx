@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store.tsx";
-import { customerGetId } from "../reducers/CustomerReducer.ts";
+import { customerGetId, updateCustomer } from "../reducers/CustomerReducer.ts";
 import { AppDispatch } from "../store/store.tsx";
 
 interface DecodedToken {
@@ -27,10 +27,10 @@ export function CustomerDetails() {
         phone: "",
         address: "",
         nic: "",
-        nicPhoto_FrontEnd: null as File | null,
-        nicPhoto_BackEnd: null as File | null,
+        nicPhoto1: null as string | null,
+        nicPhoto2: null as string | null,
         driverLicenseNum: "",
-        driverLicensePhoto: null as File | null,
+        driverLicensePhoto: null as string | null,
     });
 
     useEffect(() => {
@@ -59,14 +59,23 @@ export function CustomerDetails() {
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string) => {
-        if (e.target.files) {
-            setCustomerData((prevData) => ({ ...prevData, [fieldName]: e.target.files[0] }));
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64File = reader.result as string;
+                setCustomerData((prevData) => ({ ...prevData, [fieldName]: base64File }));
+            };
+            reader.readAsDataURL(file);
         }
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(customerData);
+
+        if (customerId) {
+            dispatch(updateCustomer({ ...customerData, customerId }));
+        }
     };
 
     return (
