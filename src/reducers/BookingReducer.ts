@@ -2,10 +2,16 @@ import axios from "axios";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
+const initialState: BookingState = {
+    selectedBooking: null,
+    bookings: [],
+};
+
+//remember temporary haduve
 interface BookingModel {
-    bookingId: string;
+    bookingId?: string;  // <-- maka
     customerId: string;
-    carId: string;
+    carId: string[];
     pickupLocation: string;
     pickupDate: string;
     returnDate: string;
@@ -15,43 +21,44 @@ interface BookingModel {
     status: string;
 }
 
+
+
 interface BookingState {
     selectedBooking: BookingModel | null;
     bookings: BookingModel[];
 }
 
-const initialState: BookingState = {
-    selectedBooking: null,
-    bookings: [],
-};
+// const initialState: BookingState = {
+//     selectedBooking: null,
+//     bookings: [],
+// };
 
 const api = axios.create({
     baseURL: "http://localhost:3003/api/booking",
 });
 
-// Function to get the stored token
+
 const getToken = () => localStorage.getItem("authToken");
 
-// Async thunk to create a booking
+//  create a booking
 export const createBooking = createAsyncThunk<BookingModel, BookingModel>(
     "booking/createBooking",
     async (booking, { rejectWithValue }) => {
         try {
             const token = getToken();
-            const response = await api.post("/create", booking, {
+            const response = await api.post("/carBooking", booking, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             toast.success("Booking created successfully.");
             return response.data as BookingModel;
         } catch (error) {
             toast.error("Error creating booking");
-            console.error("Error creating booking:", error);
             return rejectWithValue("Failed to create booking");
         }
     }
 );
 
-// Async thunk to fetch booking by ID
+// booking by ID
 export const getBookingById = createAsyncThunk<BookingModel, string>(
     "booking/getBookingById",
     async (bookingId, { rejectWithValue }) => {
@@ -68,7 +75,7 @@ export const getBookingById = createAsyncThunk<BookingModel, string>(
     }
 );
 
-// Async thunk to fetch all bookings
+// all bookings
 export const getAllBookings = createAsyncThunk<BookingModel[], void>(
     "booking/getAllBookings",
     async (_, { rejectWithValue }) => {
@@ -85,7 +92,7 @@ export const getAllBookings = createAsyncThunk<BookingModel[], void>(
     }
 );
 
-// Async thunk to update booking status
+
 export const updateBooking = createAsyncThunk<BookingModel, BookingModel>(
     "booking/updateBooking",
     async (booking, { rejectWithValue }) => {
@@ -104,7 +111,8 @@ export const updateBooking = createAsyncThunk<BookingModel, BookingModel>(
     }
 );
 
-// Redux Slice
+
+
 const bookingSlice = createSlice({
     name: "booking",
     initialState,
@@ -121,16 +129,12 @@ const bookingSlice = createSlice({
                 state.bookings = action.payload;
             })
             .addCase(updateBooking.fulfilled, (state, action: PayloadAction<BookingModel>) => {
-                // Update `selectedBooking` after a successful update
-                if (state.selectedBooking?.bookingId === action.payload.bookingId) {
-                    state.selectedBooking = action.payload;
-                }
-                // Update in bookings array
                 state.bookings = state.bookings.map((booking) =>
                     booking.bookingId === action.payload.bookingId ? action.payload : booking
                 );
             });
     },
 });
+
 
 export default bookingSlice.reducer;

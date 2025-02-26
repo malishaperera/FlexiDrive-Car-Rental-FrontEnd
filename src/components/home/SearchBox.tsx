@@ -13,6 +13,7 @@ export function SearchBox() {
     const [pickupTime, setPickupTime] = useState("");
     const [returnTime, setReturnTime] = useState("");
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
 

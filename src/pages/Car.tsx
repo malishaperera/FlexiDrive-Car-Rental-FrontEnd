@@ -4,7 +4,7 @@ import { getAllCars } from "../reducers/CarReducer.ts";
 import { AppDispatch, RootState } from "../store/store.tsx";
 import { Header } from "../components/home/Header.tsx";
 import { FaCarSide, FaGasPump, FaCogs, FaUserFriends, FaSnowflake, FaMapMarkerAlt, FaBluetooth, FaSun } from "react-icons/fa";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Define the Car type
 interface CarType {
@@ -22,7 +22,7 @@ interface CarType {
         gps?: boolean;
         bluetooth?: boolean;
         sunroof?: boolean;
-    };
+    } | string; // Allow string or object
     image1?: string;
     minRentalPeriod: number;
 }
@@ -36,7 +36,7 @@ export function Car() {
     const { pickupLocation, pickupDate, returnDate, pickupTime, returnTime } = state || {};
     const navigate = useNavigate();
 
-    const handleRentNow = (car) => {
+    const handleRentNow = (car: CarType) => {
         // Pass the selected car along with search details to the booking page
         navigate("/booking", {
             state: {
@@ -87,10 +87,12 @@ export function Car() {
 
                                 {/* Car Features */}
                                 <div className="flex gap-3 mt-3">
-                                    {car.features?.airConditioning && <FaSnowflake className="text-blue-500" title="Air Conditioning" />}
-                                    {car.features?.gps && <FaMapMarkerAlt className="text-green-500" title="GPS" />}
-                                    {car.features?.bluetooth && <FaBluetooth className="text-purple-500" title="Bluetooth" />}
-                                    {car.features?.sunroof && <FaSun className="text-yellow-500" title="Sunroof" />}
+                                    {typeof car.features === 'object' && car.features?.airConditioning && <FaSnowflake className="text-blue-500" title="Air Conditioning" />}
+                                    {typeof car.features === 'object' && car.features?.gps && <FaMapMarkerAlt className="text-green-500" title="GPS" />}
+                                    {typeof car.features === 'object' && car.features?.bluetooth && <FaBluetooth className="text-purple-500" title="Bluetooth" />}
+                                    {typeof car.features === 'object' && car.features?.sunroof && <FaSun className="text-yellow-500" title="Sunroof" />}
+                                    {/* Optionally, handle case where features is a string */}
+                                    {typeof car.features === 'string' && <p>{car.features}</p>} {/* Or any appropriate handling */}
                                 </div>
 
                                 {/* Rent Button */}

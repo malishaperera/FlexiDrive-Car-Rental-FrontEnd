@@ -20,10 +20,10 @@ export function CustomerRegister() {
         phoneNumber: "",
         address: "",
         nic: "",
-        nicPhoto1: null,  // This could be a file or URL
-        nicPhoto2: null,  // This could be a file or URL
+        nicPhoto1: null,
+        nicPhoto2: null,
         driverLicenseNum: "",
-        driverLicensePhoto: null, // This could be a file or URL
+        driverLicensePhoto: null,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,14 +33,14 @@ export function CustomerRegister() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Check if passwords match
+
         if (formData.password !== formData.confirmPassword) {
             toast.error("Passwords do not match");
             return;
         }
         console.log("Form Submitted:", formData);
 
-        // Create a new CustomerModel with all required fields
+
         const newCustomer = new CustomerModel(
             "",  // customerId will be generated later (or left empty if handled by the backend)
             formData.name,
@@ -55,10 +55,7 @@ export function CustomerRegister() {
             formData.driverLicensePhoto
         );
 
-        // Dispatch the saveCustomer action to store the new customer
         dispatch(saveCustomer(newCustomer));
-
-        // Redirect to the home page or another route
         navigate("/");
     };
 

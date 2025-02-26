@@ -4,7 +4,7 @@ import { AiFillStar } from "react-icons/ai";
 import { FaGasPump } from "react-icons/fa";
 
 const CounterCard = () => {
-  // State for the counters
+
   const [activeMembers, setActiveMembers] = useState(0);
   const [carModels, setCarModels] = useState(0);
   const [positiveRatings, setPositiveRatings] = useState(0);

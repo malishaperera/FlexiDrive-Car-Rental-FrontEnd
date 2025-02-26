@@ -5,6 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store.tsx";
 import { customerGetId, updateCustomer } from "../reducers/CustomerReducer.ts";
 import { AppDispatch } from "../store/store.tsx";
+import {toast} from "react-hot-toast";
+import {createBooking} from "../reducers/BookingReducer.ts";
+import {BookingModel} from "../models/BookingModel .tsx";
+// import {BookingModel} from "../models/BookingModel .tsx";
+// import { BookingModel } from "../models/BookingModel.ts";
+
+
 
 interface DecodedToken {
     id: string;
@@ -70,13 +77,51 @@ export function CustomerDetails() {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    // const handleSubmit = (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //
+    //     if (customerId) {
+    //         dispatch(updateCustomer({ ...customerData, customerId }));
+    //         toast.success('Customer has been updated');
+    //     }
+    // };
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (customerId) {
-            dispatch(updateCustomer({ ...customerData, customerId }));
+            try {
+                const updateResult = await dispatch(updateCustomer({ ...customerData, customerId })).unwrap();
+
+                if (updateResult) {  // update success නම් booking create කරන්න
+                    const bookingData: BookingModel = {
+                        customerId,
+                        carId: [car.carId],
+                        pickupLocation,
+                        pickupDate,
+                        returnDate,
+                        pickupTime,
+                        returnTime,
+                        totalPrice,
+                        status: "pending",
+                    };
+
+                    if (!car || !car.carId) {
+                        toast.error("Car ID is missing!");
+                        return;
+                    }
+
+
+                    await dispatch(createBooking(bookingData));
+                    toast.success("Booking created successfully!");
+                }
+            } catch (error) {
+                toast.error("Something went wrong!");
+                console.error(error);
+            }
         }
     };
+
+
 
     return (
         <div className="container mx-auto p-8 mt-20">
@@ -85,6 +130,7 @@ export function CustomerDetails() {
             <div className="bg-white shadow-lg rounded-lg p-8 mb-8">
                 <h3 className="text-xl font-semibold">Booking Information</h3>
                 <p>{car?.brand} {car?.model} ({car?.year})</p>
+                <p>{car?.carId} </p>
                 <p>Pick-up Location: {pickupLocation}</p>
                 <p>Pick-up Date & Time: {pickupDate} {pickupTime}</p>
                 <p>Return Date & Time: {returnDate} {returnTime}</p>

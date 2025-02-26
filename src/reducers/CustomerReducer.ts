@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-// Customer Model Interface
+// temporary haduve
 interface CustomerModel {
     customerId: string;
     name: string;
@@ -16,7 +16,7 @@ interface CustomerModel {
     driverLicensePhoto: string | null;
 }
 
-// Redux Store State Interface
+
 interface CustomerState {
     selectedCustomer: CustomerModel | null;
     customers: CustomerModel[];
@@ -33,10 +33,9 @@ const api = axios.create({
     baseURL: "http://localhost:3003/api/customer",
 });
 
-// Function to get the stored token
 const getToken = () => localStorage.getItem("authToken");
 
-// Async thunk to save customer
+//  save customer
 export const saveCustomer = createAsyncThunk<CustomerModel, CustomerModel>(
     "customer/saveCustomer",
     async (customer, { rejectWithValue }) => {
@@ -52,7 +51,7 @@ export const saveCustomer = createAsyncThunk<CustomerModel, CustomerModel>(
     }
 );
 
-// Async thunk to fetch customer by ID
+//  customer by ID
 export const customerGetId = createAsyncThunk<CustomerModel, string>(
     "customer/getCustomerById",
     async (customerId, { rejectWithValue }) => {
@@ -69,7 +68,7 @@ export const customerGetId = createAsyncThunk<CustomerModel, string>(
     }
 );
 
-// Async thunk to fetch all customers
+//  all customers
 export const getAllCustomers = createAsyncThunk<CustomerModel[], void>(
     "customer/getCustomers",
     async (_, { rejectWithValue }) => {
@@ -86,7 +85,7 @@ export const getAllCustomers = createAsyncThunk<CustomerModel[], void>(
     }
 );
 
-// Async thunk to update customer
+// update customer
 export const updateCustomer = createAsyncThunk<CustomerModel, CustomerModel>(
     "customer/updateCustomer",
     async (customer, { rejectWithValue }) => {
@@ -130,7 +129,7 @@ const customerSlice = createSlice({
                 if (state.selectedCustomer?.customerId === action.payload.customerId) {
                     state.selectedCustomer = action.payload;
                 }
-                // Update in customers array
+                // Update in customers array (if this ->>?)
                 state.customers = state.customers.map((customer) =>
                     customer.customerId === action.payload.customerId ? action.payload : customer
                 );
