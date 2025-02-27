@@ -16,6 +16,7 @@ import {AdminCarManage} from "./pages/admin/AdminCarManage.tsx";
 import {AdminCustomerManage} from "./pages/admin/AdminCustomerManage.tsx";
 import {AdminManage} from "./pages/admin/AdminManage.tsx";
 import {AdminBookingManage} from "./pages/admin/AdminBookingManage.tsx";
+import {DashBoardAdmin} from "./pages/admin/DashBoardAdmin.tsx";
 
 function App() {
     const routes = createBrowserRouter([
@@ -36,6 +37,7 @@ function App() {
                         { path: "adminCustomer", element: <AdminCustomerManage /> },
                         { path: "adminManage", element: <AdminManage /> },
                         { path: "adminBooking", element: <AdminBookingManage /> },
+                        { path: "test", element: <DashBoardAdmin /> },
                     ],
                 },
                 { path: "booking", element: <Booking /> },

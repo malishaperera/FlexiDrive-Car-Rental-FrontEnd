@@ -23,7 +23,7 @@ export function Sidebar() {
                 {/* Sidebar Links */}
                 <ul className="flex flex-col space-y-4">
                     <li>
-                        <Link to="/adminDashboard" className="flex items-center space-x-4 p-3 rounded-md hover:bg-blue-700">
+                        <Link to="/adminDashboard/test" className="flex items-center space-x-4 p-3 rounded-md hover:bg-blue-700">
                             <Home className="w-6 h-6" />
                             {isSidebarOpen && <span>Dashboard</span>}
                         </Link>

@@ -290,7 +290,6 @@ export function AdminCustomerManage() {
                     </div>
                 </div>
             )}
-
         </>
     );
 }

@@ -31,6 +31,7 @@ export function AdminDashBoard() {
                         <Outlet />
                     </div>
                 </main>
+
         </div>
         </>
     );
