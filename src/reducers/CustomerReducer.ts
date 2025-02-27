@@ -16,16 +16,24 @@ interface CustomerModel {
     driverLicensePhoto: string | null;
 }
 
-
 interface CustomerState {
     selectedCustomer: CustomerModel | null;
     customers: CustomerModel[];
+    loading: boolean;
+    error: string | null;
 }
+
+interface DeleteCustomerResponse {
+    message: string;
+}
+
 
 // Initial State
 export const initialState: CustomerState = {
     selectedCustomer: null,
     customers: [],
+    loading: false,
+    error: null,
 };
 
 // API Instance
@@ -68,18 +76,16 @@ export const customerGetId = createAsyncThunk<CustomerModel, string>(
     }
 );
 
-//  all customers
 export const getAllCustomers = createAsyncThunk<CustomerModel[], void>(
     "customer/getCustomers",
     async (_, { rejectWithValue }) => {
         try {
-            const token = getToken();
+            const token = localStorage.getItem("authToken");
             const response = await api.get("/view", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data as CustomerModel[];
         } catch (error) {
-            console.error("Failed to fetch customers:", error);
             return rejectWithValue("Failed to fetch customers");
         }
     }
@@ -104,6 +110,31 @@ export const updateCustomer = createAsyncThunk<CustomerModel, CustomerModel>(
     }
 );
 
+// delete customer
+export const deleteCustomer = createAsyncThunk<
+    string,
+    string,
+    { rejectValue: string }
+>(
+    "customer/deleteCustomer",
+    async (customerId, { rejectWithValue }) => {
+        try {
+            const token = getToken();
+            const response = await api.delete<DeleteCustomerResponse>(`/${customerId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            toast.success("Customer deleted successfully.");
+            return response.data.message;
+        } catch (error) {
+            toast.error("Error deleting customer");
+            console.error("Error deleting customer:", error);
+            return rejectWithValue("Failed to delete customer");
+        }
+    }
+);
+
+
 // Redux Slice
 const customerSlice = createSlice({
     name: "customer",
@@ -115,24 +146,73 @@ const customerSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(saveCustomer.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
             .addCase(saveCustomer.fulfilled, (state, action: PayloadAction<CustomerModel>) => {
+                state.loading = false;
                 state.customers.push(action.payload);
             })
+            .addCase(saveCustomer.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(customerGetId.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
             .addCase(customerGetId.fulfilled, (state, action: PayloadAction<CustomerModel>) => {
+                state.loading = false;
                 state.selectedCustomer = action.payload;
             })
+            .addCase(customerGetId.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(getAllCustomers.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
             .addCase(getAllCustomers.fulfilled, (state, action: PayloadAction<CustomerModel[]>) => {
+                state.loading = false;
                 state.customers = action.payload;
             })
+            .addCase(getAllCustomers.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(updateCustomer.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
             .addCase(updateCustomer.fulfilled, (state, action: PayloadAction<CustomerModel>) => {
-                // Update `selectedCustomer` after a successful update
+                state.loading = false;
                 if (state.selectedCustomer?.customerId === action.payload.customerId) {
                     state.selectedCustomer = action.payload;
                 }
-                // Update in customers array (if this ->>?)
                 state.customers = state.customers.map((customer) =>
                     customer.customerId === action.payload.customerId ? action.payload : customer
                 );
+            })
+            .addCase(updateCustomer.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+            // Handle delete customer
+            .addCase(deleteCustomer.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteCustomer.fulfilled, (state, action: PayloadAction<string>) => {
+                state.loading = false;
+                state.customers = state.customers.filter(
+                    (customer) => customer.customerId !== action.payload
+                );
+            })
+            .addCase(deleteCustomer.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
             });
     },
 });

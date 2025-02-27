@@ -10,7 +10,6 @@ import {Plus} from "react-feather";
 export function AdminCarManage() {
     const dispatch = useDispatch<AppDispatch>();
     const { cars, loading, error } = useSelector((state: RootState) => state.car);
-    // const [selectedImage, setSelectedImage] = useState<{ [key: string]: string }>({});
     const [selectedImage, setSelectedImage] = useState<{ [key: string]: string }>({});
 
     const [selectedCar, setSelectedCar] = useState<CarModel | null>(null);
@@ -19,38 +18,8 @@ export function AdminCarManage() {
     const [editCar, setEditCar] = useState<CarModel | null>(null);
 
     const [isAddCarModalOpen, setIsAddCarModalOpen] = useState(false);
-    // const [newCar, setNewCar] = useState<CarModel>({
-    //     carNumberPlate: "",
-    //     brand: "",
-    //     model: "",
-    //     year: 2023,
-    //     pricePerDay: 0,
-    //     status: "AVAILABLE",
-    //     seatingCapacity: 4,
-    //     transmission: "AUTOMATIC",
-    //     fuelType: "PETROL",
-    //     features: { bluetooth: false, airConditioning: false, gps: false, sunroof: false },
-    //     image1: "",
-    //     image2: "",
-    //     image3: "",
-    // });
-    // const [newCar, setNewCar] = useState<CarModel>({
-    //     carNumberPlate: "",
-    //     brand: "",
-    //     model: "",
-    //     year: 2023,
-    //     pricePerDay: 0,
-    //     status: CarStatus.AVAILABLE,
-    //     seatingCapacity: 4,
-    //     transmission: TransmissionType.AUTOMATIC,
-    //     fuelType: FuelType.PETROL,
-    //     features: { bluetooth: false, airConditioning: false, gps: false, sunroof: false },
-    //     image1: "",
-    //     image2: "",
-    //     image3: "",
-    // });
     const [newCar, setNewCar] = useState<CarModel>({
-        carId: "", // Add a default value for carId
+        carId: "",
         carNumberPlate: "",
         brand: "",
         model: "",
@@ -60,18 +29,14 @@ export function AdminCarManage() {
         seatingCapacity: 4,
         transmission: TransmissionType.AUTOMATIC,
         fuelType: FuelType.PETROL,
-        // features: { bluetooth: false, airConditioning: false, gps: false, sunroof: false },
         features: { bluetooth: false, airConditioning: false, gps: false, sunroof: false },
         image1: "",
         image2: "",
         image3: "",
-        createdAt: new Date(), // Add a default value for createdAt
-        minRentalPeriod: 1, // Add default minRentalPeriod
-        maxRentalPeriod: 28, // Add default maxRentalPeriod
+        createdAt: new Date(),
+        minRentalPeriod: 1,
+        maxRentalPeriod: 28,
     });
-
-
-
 
     useEffect(() => {
         dispatch(getAllCars());
@@ -136,7 +101,6 @@ export function AdminCarManage() {
         setIsAddCarModalOpen(false);
     };
 
-
     const handleAddCar = () => {
         dispatch(createCar(newCar))
             .unwrap()
@@ -148,8 +112,6 @@ export function AdminCarManage() {
                 toast.error(error || "Failed to add car.");
             });
     };
-
-
 
     return (
         <>
@@ -187,9 +149,7 @@ export function AdminCarManage() {
                                             src={img}
                                             alt={`Thumbnail ${index + 1}`}
                                             className="w-10 h-10 object-cover rounded cursor-pointer border-2 border-gray-300 hover:border-blue-500"
-                                            // onClick={() => setSelectedImage((prev) => ({ ...prev, [car.carId]: img }))} />
                                             onClick={() => setSelectedImage((prev) => ({ ...prev, [car.carId]: img as string }))}/>
-
                                         ))}
                                 </div>
 
@@ -204,12 +164,6 @@ export function AdminCarManage() {
                                     {car.status}
                                 </p>
 
-                                {/*<div className="flex flex-wrap mt-2 text-sm text-gray-500">*/}
-                                {/*    {car.features.bluetooth && <span className="mr-2">🎧 Bluetooth</span>}*/}
-                                {/*    {car.features.airConditioning && <span className="mr-2">❄️ A/C</span>}*/}
-                                {/*    {car.features.gps && <span className="mr-2">🛰 GPS</span>}*/}
-                                {/*    {car.features.sunroof && <span className="mr-2">🌞 Sunroof</span>}*/}
-                                {/*</div>*/}
                                 <div className="flex flex-wrap mt-2 text-sm text-gray-500">
                                     {car.features?.bluetooth && <span className="mr-2">🎧 Bluetooth</span>}
                                     {car.features?.airConditioning && <span className="mr-2">❄️ A/C</span>}
@@ -332,7 +286,6 @@ export function AdminCarManage() {
                                 />
                             </div>
 
-
                             {/* Status */}
                             <div>
                                 <label className="block text-lg font-medium mb-2">Status:</label>
@@ -346,7 +299,6 @@ export function AdminCarManage() {
                                     <option value={CarStatus.MAINTENANCE}>Maintenance</option>
                                 </select>
                             </div>
-
 
                             {/* Seating Capacity */}
                             <div>
@@ -372,13 +324,12 @@ export function AdminCarManage() {
                                 </select>
                             </div>
 
-
                             {/* Fuel Type */}
                             <div>
                                 <label className="block text-lg font-medium mb-2">Fuel Type:</label>
                                 <select
-                                    value={editCar?.fuelType || ''} // Make sure a valid value is selected
-                                    onChange={(e) => setEditCar({ ...editCar, fuelType: e.target.value as FuelType })}  // Cast to FuelType
+                                    value={editCar?.fuelType || ''}
+                                    onChange={(e) => setEditCar({ ...editCar, fuelType: e.target.value as FuelType })}
                                     className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
                                     <option value="PETROL">Petrol</option>
@@ -387,7 +338,6 @@ export function AdminCarManage() {
                                 </select>
                             </div>
 
-
                             {/* Features */}
                             <div>
                                 <h3 className="text-xl font-semibold mb-4">Features</h3>
@@ -395,7 +345,7 @@ export function AdminCarManage() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            checked={newCar.features?.bluetooth ?? false} // Fallback to false if undefined
+                                            checked={newCar.features?.bluetooth ?? false}
                                             onChange={(e) =>
                                                 setNewCar({
                                                     ...newCar,
@@ -412,7 +362,7 @@ export function AdminCarManage() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            checked={newCar.features?.airConditioning ?? false} // Fallback to false if undefined
+                                            checked={newCar.features?.airConditioning ?? false}
                                             onChange={(e) =>
                                                 setNewCar({
                                                     ...newCar,
@@ -429,7 +379,7 @@ export function AdminCarManage() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            checked={newCar.features?.gps ?? false} // Fallback to false if undefined
+                                            checked={newCar.features?.gps ?? false}
                                             onChange={(e) =>
                                                 setNewCar({
                                                     ...newCar,
@@ -443,7 +393,7 @@ export function AdminCarManage() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            checked={newCar.features?.sunroof ?? false} // Fallback to false if undefined
+                                            checked={newCar.features?.sunroof ?? false}
                                             onChange={(e) =>
                                                 setNewCar({
                                                     ...newCar,
@@ -459,8 +409,6 @@ export function AdminCarManage() {
                                     </label>
                                 </div>
                             </div>
-
-
 
                             {/* Image URLs */}
                             <div>

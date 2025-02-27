@@ -42,7 +42,6 @@ export const getAllCars = createAsyncThunk<CarModel[], void>(
     }
 );
 
-
 export const updateCar = createAsyncThunk<CarModel, CarModel>(
     "car/updateCar",
     async (car: CarModel, { rejectWithValue }) => {
@@ -60,25 +59,23 @@ export const updateCar = createAsyncThunk<CarModel, CarModel>(
     }
 );
 
-
 export const deleteCar = createAsyncThunk<string, string>(
     'car/deleteCar',
     async (carId: string, { rejectWithValue }) => {
         try {
             const response = await axios.delete(`http://localhost:3003/api/car/${carId}`, {
                 headers: {
-                    Authorization: `Bearer ${getToken()}`, // Include token in headers
+                    Authorization: `Bearer ${getToken()}`,
                 },
             });
-            return carId; // Return the carId on success
+            return carId;
         } catch (error) {
             console.error("Error deleting car:", error);
-            return rejectWithValue(error.response?.data || "Failed to delete car");
+            return rejectWithValue("Failed to delete car");
         }
     }
 );
 
-// New Thunk for Car Registration
 export const createCar = createAsyncThunk<CarModel, CarModel>(
     "car/createCar",
     async (car: CarModel, { rejectWithValue }) => {
@@ -95,8 +92,6 @@ export const createCar = createAsyncThunk<CarModel, CarModel>(
         }
     }
 );
-
-
 
 const initialState: {
     cars: CarModel[];
@@ -177,18 +172,12 @@ const carSlice = createSlice({
             })
             .addCase(createCar.fulfilled, (state, action: PayloadAction<CarModel>) => {
                 state.loading = false;
-                state.cars.push(action.payload); // Add the new car to the cars list
+                state.cars.push(action.payload);
             })
             .addCase(createCar.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             });
-
-
-
-
-
-
     },
 });
 

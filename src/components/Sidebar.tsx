@@ -8,9 +8,10 @@ export function Sidebar() {
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
-
+    // text-[#3598d7]
+    // bg-gray-800
     return (
-        <div className={`bg-gray-800 text-white h-screen ${isSidebarOpen ? "w-64" : "w-16"} transition-all duration-300`}>
+        <div className={`bg-[#3598d7] text-white h-screen ${isSidebarOpen ? "w-64" : "w-16"} transition-all duration-300`}>
             <div className="p-4 flex flex-col h-full">
                 {/* Sidebar Toggle Button */}
                 <button onClick={toggleSidebar} className="text-white focus:outline-none mb-4">
