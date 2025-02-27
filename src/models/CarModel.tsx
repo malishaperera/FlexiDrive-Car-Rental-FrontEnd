@@ -18,6 +18,7 @@ export enum FuelType {
 
 
 export class CarModel {
+    carId: string;
     carNumberPlate: string;
     brand: string;
     model: string;
@@ -37,6 +38,7 @@ export class CarModel {
     maxRentalPeriod: number;
 
     constructor(
+        carId: string,
         carNumberPlate: string,
         brand: string,
         model: string,
@@ -54,6 +56,7 @@ export class CarModel {
         minRentalPeriod = 1,
         maxRentalPeriod = 28
     ) {
+        this.carId = carId;
         this.carNumberPlate = carNumberPlate;
         this.brand = brand;
         this.model = model;

@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCars } from "../reducers/CarReducer.ts";
-import { AppDispatch, RootState } from "../store/store.tsx";
-import { Header } from "../components/home/Header.tsx";
+// import { getAllCars } from "../../reducers/CarReducer.ts";
+import { AppDispatch, RootState } from "../../store/store.tsx";
+import { Header } from "../../components/home/Header.tsx";
 import { FaCarSide, FaGasPump, FaCogs, FaUserFriends, FaSnowflake, FaMapMarkerAlt, FaBluetooth, FaSun } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import {getAllAvailableCars} from "../../reducers/CarReducer.ts";
 
 // Define the Car type
 interface CarType {
@@ -51,7 +52,7 @@ export function Car() {
     };
 
     useEffect(() => {
-        dispatch(getAllCars());
+        dispatch(getAllAvailableCars());
     }, [dispatch]);
 
     return (

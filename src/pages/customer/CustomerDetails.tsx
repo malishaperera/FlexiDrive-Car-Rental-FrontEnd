@@ -2,12 +2,13 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store.tsx";
-import { customerGetId, updateCustomer } from "../reducers/CustomerReducer.ts";
-import { AppDispatch } from "../store/store.tsx";
+import { RootState } from "../../store/store.tsx";
+import { customerGetId, updateCustomer } from "../../reducers/CustomerReducer.ts";
+import { AppDispatch } from "../../store/store.tsx";
 import {toast} from "react-hot-toast";
-import {createBooking} from "../reducers/BookingReducer.ts";
-import {BookingModel} from "../models/BookingModel .tsx";
+import {createBooking} from "../../reducers/BookingReducer.ts";
+import {BookingModel} from "../../models/BookingModel .tsx";
+import {Header} from "../../components/home/Header.tsx";
 // import {BookingModel} from "../models/BookingModel .tsx";
 // import { BookingModel } from "../models/BookingModel.ts";
 
@@ -121,9 +122,12 @@ export function CustomerDetails() {
         }
     };
 
-
-
     return (
+
+        <>
+
+            <Header/>
+
         <div className="container mx-auto p-8 mt-20">
             <h2 className="text-2xl font-semibold text-gray-800 mb-5">Booking Details</h2>
 
@@ -171,5 +175,6 @@ export function CustomerDetails() {
                 </button>
             </form>
         </div>
+        </>
     );
 }

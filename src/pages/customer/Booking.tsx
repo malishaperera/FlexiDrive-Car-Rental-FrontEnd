@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaCarSide, FaGasPump, FaCogs, FaUserFriends, FaSnowflake, FaMapMarkerAlt, FaBluetooth, FaSun } from "react-icons/fa"; // Import icons
 import { useNavigate } from "react-router-dom";
+import {Header} from "../../components/home/Header.tsx";
 
 
 
@@ -47,6 +48,8 @@ export function Booking() {
     };
 
     return (
+        <>
+            <Header/>
         <div className="container mx-auto p-8 mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 ">
             {/* Left side: Car Details */}
             <div className="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -138,5 +141,6 @@ export function Booking() {
                 </button>
             </div>
         </div>
+        </>
     );
 }
