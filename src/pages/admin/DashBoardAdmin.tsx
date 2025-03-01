@@ -1,6 +1,7 @@
 
 export function DashBoardAdmin() {
     return (
+
         <div className="flex flex-col h-screen bg-gray-100">
             {/* Top bar */}
             <div className="bg-[#40b6f0] p-4 flex justify-between items-center">

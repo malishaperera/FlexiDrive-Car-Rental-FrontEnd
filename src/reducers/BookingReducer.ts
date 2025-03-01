@@ -111,6 +111,22 @@ export const updateBooking = createAsyncThunk<BookingModel, BookingModel>(
     }
 );
 
+// Add the deleteBooking action
+export const deleteBooking = createAsyncThunk<void, string>(
+    "booking/deleteBooking",
+    async (bookingId, { rejectWithValue }) => {
+        try {
+            const token = getToken();
+            await api.delete(`/${bookingId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            toast.success("Booking deleted successfully.");
+        } catch (error) {
+            toast.error("Error deleting booking");
+            return rejectWithValue("Failed to delete booking");
+        }
+    }
+);
 
 
 const bookingSlice = createSlice({
@@ -131,6 +147,11 @@ const bookingSlice = createSlice({
             .addCase(updateBooking.fulfilled, (state, action: PayloadAction<BookingModel>) => {
                 state.bookings = state.bookings.map((booking) =>
                     booking.bookingId === action.payload.bookingId ? action.payload : booking
+                );
+            })
+            .addCase(deleteBooking.fulfilled, (state, action) => {
+                state.bookings = state.bookings.filter(
+                    (booking) => booking.bookingId !== action.meta.arg // Removes the deleted booking from state
                 );
             });
     },

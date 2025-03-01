@@ -17,6 +17,8 @@ export function AdminCarManage() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editCar, setEditCar] = useState<CarModel | null>(null);
 
+    const[carImages,setCarImages] = useState([]);
+
     const [isAddCarModalOpen, setIsAddCarModalOpen] = useState(false);
     const [newCar, setNewCar] = useState<CarModel>({
         carId: "",
