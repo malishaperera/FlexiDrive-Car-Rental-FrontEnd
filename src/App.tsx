@@ -33,6 +33,7 @@ function App() {
                     path: "adminDashboard",
                     element: <AdminDashBoard />,
                     children: [
+                        // { index: true, element: <DashBoardAdmin /> },
                         { path: "adminCar", element: <AdminCarManage /> },
                         { path: "adminCustomer", element: <AdminCustomerManage /> },
                         { path: "adminManage", element: <AdminManage /> },

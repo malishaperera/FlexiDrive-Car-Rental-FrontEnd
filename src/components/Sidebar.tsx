@@ -11,7 +11,7 @@ export function Sidebar() {
     // text-[#3598d7]
     // bg-gray-800
     return (
-        <div className={`bg-[#3598d7] text-white h-screen ${isSidebarOpen ? "w-64" : "w-16"} transition-all duration-300`}>
+        <div className={`bg-[#3598d7] text-white h-screen ${isSidebarOpen ? "w-64" : "w-26"} transition-all duration-300`}>
             <div className="p-4 flex flex-col h-full">
                 {/* Sidebar Toggle Button */}
                 <button onClick={toggleSidebar} className="text-white focus:outline-none mb-4">
@@ -23,7 +23,7 @@ export function Sidebar() {
                 {/* Sidebar Links */}
                 <ul className="flex flex-col space-y-4">
                     <li>
-                        <Link to="/adminDashboard/test" className="flex items-center space-x-4 p-3 rounded-md hover:bg-blue-700">
+                        <Link to="/adminDashboard" className="flex items-center space-x-4 p-3 rounded-md hover:bg-blue-700">
                             <Home className="w-6 h-6" />
                             {isSidebarOpen && <span>Dashboard</span>}
                         </Link>

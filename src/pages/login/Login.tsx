@@ -7,7 +7,6 @@ import { loginUser } from "../../reducers/LoginReducer";
 import {Header} from "../../components/home/Header.tsx";
 import {jwtDecode} from "jwt-decode";
 
-
 export function Login() {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
@@ -47,7 +46,7 @@ export function Login() {
 
 
                 if (role === "CUSTOMER") {
-                    toast.success("You are logged in!");
+                    // toast.success("You are logged in!");
                     navigate("/");
                 } else if (role === "ADMIN") {
                     navigate("/adminDashboard");

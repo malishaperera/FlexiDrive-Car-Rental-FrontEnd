@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 import { getAllBookings, updateBooking } from "../../reducers/BookingReducer";
 import { Eye, Edit, Trash2 } from "lucide-react";
+import {BookingModel} from "../../models/BookingModel .tsx";
 
 // Function to format date
 const formatDate = (date: string) => {
