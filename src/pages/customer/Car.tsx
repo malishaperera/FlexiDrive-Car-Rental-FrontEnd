@@ -1,32 +1,32 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { getAllCars } from "../../reducers/CarReducer.ts";
 import { AppDispatch, RootState } from "../../store/store.tsx";
 import { Header } from "../../components/home/Header.tsx";
 import { FaCarSide, FaGasPump, FaCogs, FaUserFriends, FaSnowflake, FaMapMarkerAlt, FaBluetooth, FaSun } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import {getAllAvailableCars} from "../../reducers/CarReducer.ts";
+import {CarType} from "../../types/Car.ts";
 
 // Define the Car type
-interface CarType {
-    carNumberPlate: string;
-    brand: string;
-    model: string;
-    year: number;
-    pricePerDay: number;
-    status: "AVAILABLE" | "RENTED" | "MAINTENANCE";
-    seatingCapacity: number;
-    transmission: "AUTOMATIC" | "MANUAL";
-    fuelType: "PETROL" | "DIESEL" | "HYBRID" | "ELECTRIC";
-    features?: {
-        airConditioning?: boolean;
-        gps?: boolean;
-        bluetooth?: boolean;
-        sunroof?: boolean;
-    } | string; // Allow string or object
-    image1?: string;
-    minRentalPeriod: number;
-}
+// interface CarType {
+//     carNumberPlate: string;
+//     brand: string;
+//     model: string;
+//     year: number;
+//     pricePerDay: number;
+//     status: "AVAILABLE" | "RENTED" | "MAINTENANCE";
+//     seatingCapacity: number;
+//     transmission: "AUTOMATIC" | "MANUAL";
+//     fuelType: "PETROL" | "DIESEL" | "HYBRID" | "ELECTRIC";
+//     features?: {
+//         airConditioning?: boolean;
+//         gps?: boolean;
+//         bluetooth?: boolean;
+//         sunroof?: boolean;
+//     } | string;
+//     image1?: string;
+//     minRentalPeriod: number;
+// }
 
 // Component
 export function Car() {
@@ -38,7 +38,6 @@ export function Car() {
     const navigate = useNavigate();
 
     const handleRentNow = (car: CarType) => {
-        // Pass the selected car along with search details to the booking page
         navigate("/booking", {
             state: {
                 car,
@@ -92,8 +91,7 @@ export function Car() {
                                     {typeof car.features === 'object' && car.features?.gps && <FaMapMarkerAlt className="text-green-500" title="GPS" />}
                                     {typeof car.features === 'object' && car.features?.bluetooth && <FaBluetooth className="text-purple-500" title="Bluetooth" />}
                                     {typeof car.features === 'object' && car.features?.sunroof && <FaSun className="text-yellow-500" title="Sunroof" />}
-                                    {/* Optionally, handle case where features is a string */}
-                                    {typeof car.features === 'string' && <p>{car.features}</p>} {/* Or any appropriate handling */}
+                                    {typeof car.features === 'string' && <p>{car.features}</p>}
                                 </div>
 
                                 {/* Rent Button */}

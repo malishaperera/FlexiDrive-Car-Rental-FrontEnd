@@ -2,6 +2,7 @@ import {Navigate, Outlet, useLocation,} from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-hot-toast";
 import { Sidebar } from "../../components/Sidebar.tsx";
+import {Header} from "../../components/home/Header.tsx";
 
 export function AdminDashBoard() {
     const token = localStorage.getItem("authToken");
@@ -18,22 +19,14 @@ export function AdminDashBoard() {
     }
 
     const location = useLocation();
-    const isMainDashboard = location.pathname === "/adminDashboard"; // ✅ Only show on main dashboard
+    const isMainDashboard = location.pathname === "/adminDashboard";
 
     return (
-        <div className="flex h-screen overflow-hidden">
+        <>
+
+        <div className="flex h-screen overflow-hidden my-header">
             <Sidebar />
             <main className="flex-grow bg-gray-100">
-                {/*/!* ✅ Top Bar *!/*/}
-                {/*<div className="bg-[#40b6f0] p-4 flex justify-between items-center">*/}
-                {/*    <div className="text-white text-xl font-bold">Admin Dashboard</div>*/}
-                {/*    <div className="flex items-center space-x-4">*/}
-                {/*        <button className="text-white hover:bg-blue-600 p-2 rounded-lg">Notifications</button>*/}
-                {/*        <button className="text-white hover:bg-blue-600 p-2 rounded-lg">Profile</button>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-
-                {/* ✅ Show this Section only on Main Dashboard */}
                 {isMainDashboard && (
                     <div className="p-6">
                         <h2 className="text-3xl font-extrabold text-[#252828] mb-6">Dashboard Overview</h2>
@@ -67,5 +60,6 @@ export function AdminDashBoard() {
                 </div>
             </main>
         </div>
+        </>
     );
 }

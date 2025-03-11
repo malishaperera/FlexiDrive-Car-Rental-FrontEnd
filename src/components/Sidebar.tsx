@@ -1,15 +1,22 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu as MenuIcon, Home, Users, Package, ShoppingCart, User } from "react-feather";
+import { IoIosLogOut } from "react-icons/io";
 
 export function Sidebar() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
-    // text-[#3598d7]
-    // bg-gray-800
+
+    const handleLogout = () => {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("customerName");
+        navigate("/login");
+    };
+
     return (
         <div className={`bg-[#3598d7] text-white h-screen ${isSidebarOpen ? "w-64" : "w-26"} transition-all duration-300`}>
             <div className="p-4 flex flex-col h-full">
@@ -53,6 +60,17 @@ export function Sidebar() {
                         </Link>
                     </li>
                 </ul>
+
+                {/* Logout Button */}
+                <div className="mt-auto">
+                    <button
+                        onClick={handleLogout}
+                        className="w-full p-3 mt-4 bg-red-500 hover:bg-red-600  text-white flex items-center justify-center space-x-2 rounded-3xl"
+                    >
+                        <IoIosLogOut className="w-6 h-6" />
+                        {isSidebarOpen && <span>Logout</span>}
+                    </button>
+                </div>
             </div>
         </div>
     );

@@ -41,7 +41,7 @@ export function Header() {
     };
 
     return (
-        <header className="flex top-0 left-0 w-full justify-between items-center px-10 py-5 bg-blue-950 shadow-md transition-colors fixed z-50">
+        <header className="flex top-0 left-0 w-[99%] justify-between items-center px-10 py-5 bg-blue-950 shadow-md transition-colors fixed z-50">
             <h1 className="text-2xl font-bold text-[#3598d7]">Flexi-Drive</h1>
             <nav className="flex space-x-6 text-white">
                 <button
@@ -50,12 +50,6 @@ export function Header() {
                 >
                     Home
                 </button>
-                {/*<button*/}
-                {/*    onClick={() => handleScrollAndNavigate("rent-section", "/")}*/}
-                {/*    className="hover:text-[#40b6f0]"*/}
-                {/*>*/}
-                {/*    Rent Car*/}
-                {/*</button>*/}
 
                 <button
                     onClick={() => handleScrollAndNavigate("latest-section", "/")}
@@ -107,8 +101,6 @@ export function Header() {
                             Logout
                         </button>
                     </div>
-
-
                 )}
             </div>
         </header>
