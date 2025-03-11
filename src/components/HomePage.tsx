@@ -9,7 +9,7 @@ export function HomePage() {
     return (
         <div className="bg-[#f2fafe]h-[90px] min-h-screen w-screen ">
 
-            {/* Header */}
+             {/*Header */}
             <Header/>
             {/* Hero Section */}
             <section id="hero-section">
