@@ -63,7 +63,7 @@ export const deleteCar = createAsyncThunk<string, string>(
     'car/deleteCar',
     async (carId: string, { rejectWithValue }) => {
         try {
-            const response = await axios.delete(`http://localhost:3003/api/car/${carId}`, {
+            await axios.delete(`http://localhost:3003/api/car/${carId}`, {
                 headers: {
                     Authorization: `Bearer ${getToken()}`,
                 },
