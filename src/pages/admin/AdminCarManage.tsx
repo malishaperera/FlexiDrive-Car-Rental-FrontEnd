@@ -1,11 +1,12 @@
 import { CarModel } from "../../models/CarModel";
-import { Eye, Edit, Trash2, Wifi, Sun, MapPin } from "lucide-react";
+import {  Edit, Trash2, Wifi, Sun, MapPin } from "lucide-react";
+// Eye
 import AddButton from "../../components/button/AddButton.tsx";
 import { useEffect, useState } from "react";
 import CarFormModal from "../../components/form/CarFormModal.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store.tsx";
-import {createCar, getAllCars} from "../../reducers/CarReducer.ts";
+import {createCar, deleteCar, getAllCars, updateCar} from "../../reducers/CarReducer.ts";
 import { toast } from "react-hot-toast";
 
 export function AdminCarManage() {
@@ -25,29 +26,13 @@ export function AdminCarManage() {
     const handleAddCar = () => {
         setIsModalOpen(true);
         setNewCar(null);
-        toast.success("Car Added!");
     };
-    //
-    // const handleSaveCar = (car: CarModel) => {
-    //     try {
-    //         if (car) {
-    //             dispatch(createCar(car));  // Save car data
-    //             toast.success(car.carId ? "Car Updated!" : "Car Added!");
-    //         }
-    //     } catch (error) {
-    //         toast.error("Failed to save car.");
-    //     }
-    //     setNewCar(car);
-    //     handleCloseModal();
-    // };
-
 
     const handleEditCar = (carId: string) => {
         const carToEdit = cars.find(car => car.carId === carId);
         if (carToEdit) {
             setNewCar(carToEdit);
             setIsModalOpen(true);
-            toast.success("Edit Car!");
         }
     };
 
@@ -57,10 +42,14 @@ export function AdminCarManage() {
 
     const handleSaveCar = (car: CarModel) => {
         try {
-            if (car) {
-                dispatch(createCar(car));  // Save car data
-                toast.success(car.carId ? "Car Updated!" : "Car Added!");
+            if (car.carId) {
+                dispatch(updateCar(car));
+                toast.success("Car Updated!");
+            } else {
+                dispatch(createCar(car));
+                toast.success("Car Added!");
             }
+            dispatch(getAllCars());
         } catch (error) {
             console.error("Error :", error);
             toast.error("Failed to save car.");
@@ -70,9 +59,10 @@ export function AdminCarManage() {
     };
 
     const handleDeleteCar = (carId: string) => {
-        toast.success("Car Deleted!" +carId);
+        dispatch(deleteCar(carId));
+        toast.success("Car Deleted!");
+        dispatch(getAllCars());
     };
-
     return (
         <>
             <div className="flex flex-col items-center justify-center w-full">
@@ -124,11 +114,10 @@ export function AdminCarManage() {
                                     </div>
                                 )}
                             </div>
-
-                            <div className="flex space-x-4 mt-2">
-                                <button className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600">
-                                    <Eye className="w-5 h-5" />
-                                </button>
+                            <div className="flex space-x-4 mt-4 justify-center relative top-">
+                                {/*<button  className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600">*/}
+                                {/*     <Eye className="w-5 h-5" />*/}
+                                {/* </button>*/}
                                 <button onClick={() => handleEditCar(car.carId)} className="p-2 bg-yellow-500 text-white rounded-full hover:bg-yellow-600">
                                     <Edit className="w-5 h-5" />
                                 </button>
