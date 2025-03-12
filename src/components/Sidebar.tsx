@@ -18,6 +18,8 @@ export function Sidebar() {
     };
 
     return (
+        <div className="bg-amber-600">
+
         <div className={`bg-[#3598d7] text-white h-screen ${isSidebarOpen ? "w-64" : "w-26"} transition-all duration-300`}>
             <div className="p-4 flex flex-col h-full">
                 {/* Sidebar Toggle Button */}
@@ -72,6 +74,7 @@ export function Sidebar() {
                     </button>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

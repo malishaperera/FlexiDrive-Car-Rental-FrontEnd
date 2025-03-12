@@ -64,7 +64,7 @@ export function AdminCarManage() {
         dispatch(getAllCars());
     };
     return (
-        <>
+        <div className="bg-amber-200">
             <div className="flex flex-col items-center justify-center w-full">
                 <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-6">
                     Car Management
@@ -138,6 +138,6 @@ export function AdminCarManage() {
                     onClose={handleCloseModal}
                 />
             )}
-        </>
+        </div>
     );
 }

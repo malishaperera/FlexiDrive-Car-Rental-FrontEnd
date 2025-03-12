@@ -1,6 +1,5 @@
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import { CustomerRegister } from "./pages/register/CustomerRegister.tsx";
 import { RootLayout } from "./components/ RootLayout.tsx";
 import { HomePage } from "./components/HomePage.tsx";

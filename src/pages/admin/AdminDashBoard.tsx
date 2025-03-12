@@ -2,7 +2,7 @@ import {Navigate, Outlet, useLocation,} from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-hot-toast";
 import { Sidebar } from "../../components/Sidebar.tsx";
-import {Header} from "../../components/home/Header.tsx";
+
 
 export function AdminDashBoard() {
     const token = localStorage.getItem("authToken");
@@ -23,7 +23,6 @@ export function AdminDashBoard() {
 
     return (
         <>
-
         <div className="flex h-screen overflow-hidden my-header">
             <Sidebar />
             <main className="flex-grow bg-gray-100">
