@@ -36,16 +36,6 @@ The **FlexiDrive Car Rental** project provides a user-friendly web interface for
    cd flexidrive-car-rental-frontend
    npm install
    npm run dev
-
-
-
-
-
-
-
-
-
-
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
