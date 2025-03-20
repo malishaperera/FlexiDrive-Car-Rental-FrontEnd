@@ -33,7 +33,9 @@ The **FlexiDrive Car Rental** project provides a user-friendly web interface for
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/malishaperera/FlexiDrive-Car-Rental-FrontEnd.git
-
+   cd flexidrive-car-rental-frontend
+   npm install
+   npm run dev
 
 
 
