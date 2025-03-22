@@ -14,7 +14,7 @@ export function SearchBox() {
     const [returnTime, setReturnTime] = useState("");
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!pickupLocation || !pickupDate || !returnDate || !pickupTime || !returnTime) {

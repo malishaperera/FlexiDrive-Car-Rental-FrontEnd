@@ -8,5 +8,4 @@ export interface CustomerWithoutPassword {
     nicPhoto2: string | null;
     driverLicenseNum: string | null;
     driverLicensePhoto: string | null;
-
 }

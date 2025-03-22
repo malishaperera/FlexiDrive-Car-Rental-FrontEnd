@@ -2,16 +2,12 @@ import axios from "axios";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
-const initialState: BookingState = {
-    selectedBooking: null,
-    bookings: [],
-};
 
 //remember temporary haduve
 interface BookingModel {
-    bookingId?: string;  // <-- maka
+    bookingId?: string;
     customerId: string;
-    carId: string[];
+    carIds: string[];
     pickupLocation: string;
     pickupDate: string;
     returnDate: string;
@@ -21,22 +17,17 @@ interface BookingModel {
     status: string;
 }
 
-
-
 interface BookingState {
     selectedBooking: BookingModel | null;
     bookings: BookingModel[];
 }
-
-// const initialState: BookingState = {
-//     selectedBooking: null,
-//     bookings: [],
-// };
-
+const initialState: BookingState = {
+    selectedBooking: null,
+    bookings: [],
+};
 const api = axios.create({
     baseURL: "http://localhost:3003/api/booking",
 });
-
 
 const getToken = () => localStorage.getItem("authToken");
 
@@ -52,9 +43,11 @@ export const createBooking = createAsyncThunk<BookingModel, BookingModel>(
             toast.success("Booking created successfully.");
             return response.data as BookingModel;
         } catch (error) {
+            console.error("Booking creation error:", error);
             toast.error("Error creating booking");
             return rejectWithValue("Failed to create booking");
         }
+
     }
 );
 
@@ -92,7 +85,6 @@ export const getAllBookings = createAsyncThunk<BookingModel[], void>(
     }
 );
 
-
 export const updateBooking = createAsyncThunk<BookingModel, BookingModel>(
     "booking/updateBooking",
     async (booking, { rejectWithValue }) => {
@@ -122,12 +114,12 @@ export const deleteBooking = createAsyncThunk<void, string>(
             });
             toast.success("Booking deleted successfully.");
         } catch (error) {
+            console.error("Error deleting booking:", error);
             toast.error("Error deleting booking");
             return rejectWithValue("Failed to delete booking");
         }
     }
 );
-
 
 const bookingSlice = createSlice({
     name: "booking",
@@ -156,6 +148,5 @@ const bookingSlice = createSlice({
             });
     },
 });
-
 
 export default bookingSlice.reducer;

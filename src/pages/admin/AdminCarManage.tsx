@@ -1,6 +1,5 @@
 import { CarModel } from "../../models/CarModel";
 import {  Edit, Trash2, Wifi, Sun, MapPin } from "lucide-react";
-// Eye
 import AddButton from "../../components/button/AddButton.tsx";
 import { useEffect, useState } from "react";
 import CarFormModal from "../../components/form/CarFormModal.tsx";

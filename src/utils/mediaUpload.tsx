@@ -40,27 +40,6 @@ const supabase_url = "https://zoqzmmbdvljjjxtnprkm.supabase.co";
 const anon_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpvcXptbWJkdmxqamp4dG5wcmttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NjY4NzIsImV4cCI6MjA1NzI0Mjg3Mn0.XKGKG8mM65TGEyQZ8z_MteFJ8-l7SIJZ74bM9CRioPA";
 
 const supabase = createClient(supabase_url, anon_key);
-
-// export default async function mediaUpload(file: File): Promise<string> {
-//     if (!file) {
-//         throw new Error("No file selected");
-//     }
-//
-//     const timestamp = new Date().getTime();
-//     const fileName = `${timestamp}-${file.name}`;
-//
-//     const { error } = await supabase.storage.from("images").upload(fileName, file, {
-//         cacheControl: "3600",
-//         upsert: false,
-//     });
-//
-//     if (error) {
-//         throw new Error("Error uploading file");
-//     }
-//
-//     const { data } = supabase.storage.from("images").getPublicUrl(fileName);
-//     return data.publicUrl;
-// }
 export default async function mediaUpload(file: File): Promise<string> {
     if (!file) {
         throw new Error("No file selected");
