@@ -150,6 +150,17 @@ export function CustomerDetails() {
                 })).unwrap();
             }
 
+            // const bookingPayload = {
+            //     customerId,
+            //     carIds: [car.carId],
+            //     pickupLocation,
+            //     pickupDate: formatBookingDate(pickupDate),
+            //     returnDate: formatBookingDate(returnDate),
+            //     pickupTime,
+            //     returnTime,
+            //     totalPrice: Number(totalPrice),
+            //     status: "pending"
+            // };
             const bookingPayload = {
                 customerId,
                 carIds: [car.carId],
@@ -158,9 +169,10 @@ export function CustomerDetails() {
                 returnDate: formatBookingDate(returnDate),
                 pickupTime,
                 returnTime,
-                totalPrice: Number(totalPrice),
+                totalAmount: Number(totalPrice),  // Changed from totalPrice to totalAmount
                 status: "pending"
             };
+
 
             await dispatch(createBooking(bookingPayload)).unwrap();
 

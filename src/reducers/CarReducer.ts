@@ -7,23 +7,6 @@ const api = axios.create({
 });
 
 const getToken = () => localStorage.getItem("authToken");
-
-// export const getAllAvailableCars = createAsyncThunk<CarModel[], void>(
-//     "car/getAllAvailableCars",
-//     async (_, { rejectWithValue }) => {
-//         try {
-//             const response = await api.get("/available", {
-//                 headers: {
-//                     Authorization: `Bearer ${getToken()}`,
-//                 },
-//             });
-//             return response.data as CarModel[];
-//         } catch (err) {
-//             console.error("Error fetching cars:", err);
-//             return rejectWithValue("Failed to fetch cars");
-//         }
-//     }
-// );
 export const getAllAvailableCars = createAsyncThunk<CarModel[], void>(
     "car/getAllAvailableCars",
     async (_, { rejectWithValue }) => {
