@@ -1,4 +1,4 @@
-# FlexiDrive Car Rental - Frontend
+# 🚗 FlexiDrive Car Rental - Frontend
 
 ## Overview
 The **FlexiDrive Car Rental** project provides a user-friendly web interface for a car rental service. It allows users to search for available cars, view car details, and make bookings. The platform supports a seamless experience with real-time updates, easy navigation, and responsive design.
@@ -33,10 +33,9 @@ The **FlexiDrive Car Rental** project provides a user-friendly web interface for
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/malishaperera/FlexiDrive-Car-Rental-FrontEnd.git
-   cd flexidrive-car-rental-frontend
+   cd FlexiDrive-Car-Rental-FrontEnd
    npm install
    npm run dev
-# React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
