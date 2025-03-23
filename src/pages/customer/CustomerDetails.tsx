@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 import { createBooking } from "../../reducers/BookingReducer";
 import { Header } from "../../components/home/Header";
 import mediaUpload from "../../utils/mediaUpload";
-
+import { useNavigate } from "react-router-dom";
 interface DecodedToken {
     id: string;
 }
@@ -34,6 +34,7 @@ export function CustomerDetails() {
     const customerId = decodedToken?.id || null;
     const dispatch = useDispatch<AppDispatch>();
     const customer = useSelector((state: RootState) => state.customer.selectedCustomer);
+    const navigate = useNavigate();
 
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [uploading, setUploading] = useState(false);
@@ -174,7 +175,22 @@ export function CustomerDetails() {
             };
 
 
-            await dispatch(createBooking(bookingPayload)).unwrap();
+            const result =await dispatch(createBooking(bookingPayload)).unwrap();
+            navigate("/bookingState", {
+                state: {
+                    booking: result,
+                    carDetails: car,
+                    pickupDetails: {
+                        location: pickupLocation,
+                        date: pickupDate,
+                        time: pickupTime
+                    },
+                    returnDetails: {
+                        date: returnDate,
+                        time: returnTime
+                    }
+                }
+            });
 
         } catch (error: unknown) {
             console.error("Full error details:", error);

@@ -16,6 +16,7 @@ import {AdminCustomerManage} from "./pages/admin/AdminCustomerManage.tsx";
 import {AdminManage} from "./pages/admin/AdminManage.tsx";
 import {AdminBookingManage} from "./pages/admin/AdminBookingManage.tsx";
 import {DashBoardAdmin} from "./pages/admin/DashBoardAdmin.tsx";
+import {BookingState} from "./pages/customer/BookingState.tsx"
 
 function App() {
     const routes = createBrowserRouter([
@@ -42,6 +43,7 @@ function App() {
                 },
                 { path: "booking", element: <Booking /> },
                 { path: "customerDetails", element: <CustomerDetails /> },
+                { path: "bookingState", element: <BookingState/> },
                 { path: "/*", element: <ErrorNotFound /> },
             ],
         },
